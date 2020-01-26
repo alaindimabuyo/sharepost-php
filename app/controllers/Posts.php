@@ -119,6 +119,19 @@
       }
     }
 
+    public function delete($id){
+      if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if($this->postModel->deletePost($id)){
+          flash('post_message', 'Post Removed');
+          redirect('posts');
+
+        }else{
+          die('Something went wrong');
+        }
+      }else{
+        redirect('posts');
+      }
+    }
     public function show($id){
       $post = $this->postModel->getPostById($id);
       $user = $this->userModel->getUserById($post->user_id);
